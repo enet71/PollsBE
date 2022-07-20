@@ -13,3 +13,5 @@ services:
       - data:/var/lib/postgresql
   myapp:
     image: "pl"
+    ports:
+      - 8080:8080

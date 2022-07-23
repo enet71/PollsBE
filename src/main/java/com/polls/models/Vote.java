@@ -1,14 +1,24 @@
 package com.polls.models;
 
+import com.polls.entity.VoteEntity;
+
 public class Vote {
-    private int id;
+    private Integer id;
     private String title;
 
-    public int getId() {
+    public static Vote toModel(VoteEntity entity) {
+        Vote model = new Vote();
+        model.setId(entity.getId());
+        model.setTitle(entity.getTitle());
+
+        return model;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

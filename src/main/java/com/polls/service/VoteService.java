@@ -18,8 +18,8 @@ public class VoteService {
         this.voteRepository = voteRepository;
     }
 
-    public void save(VoteEntity vote) {
-        voteRepository.save(vote);
+    public VoteEntity create(VoteEntity vote) {
+        return voteRepository.save(vote);
     }
 
     public void deleteById(Integer id) {

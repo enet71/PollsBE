@@ -2,6 +2,7 @@ package com.polls.controller;
 
 import com.polls.entity.VoteEntity;
 import com.polls.models.Vote;
+import com.polls.service.VoteOptionService;
 import com.polls.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,16 +16,19 @@ import java.util.Optional;
 @RequestMapping("/votes")
 public class VoteController {
     private final VoteService voteService;
+    private final VoteOptionService voteOptionService;
 
     @Autowired
-    public VoteController(VoteService voteService) {
+    public VoteController(VoteService voteService, VoteOptionService voteOptionService) {
         this.voteService = voteService;
+        this.voteOptionService = voteOptionService;
     }
 
     @CrossOrigin
     @PostMapping
     public ResponseEntity<?> create(@RequestBody VoteEntity vote) {
-        voteService.save(vote);
+        VoteEntity createdVote = voteService.create(vote);
+        vote.getVoteOptions().forEach(voteOptionEntity -> voteOptionService.create(voteOptionEntity, createdVote.getId()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

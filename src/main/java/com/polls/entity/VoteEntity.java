@@ -1,6 +1,9 @@
 package com.polls.entity;
 
+import com.polls.enums.VoteType;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vote")
@@ -10,6 +13,9 @@ public class VoteEntity {
     private Integer id;
 
     private String title;
+    private VoteType type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vote")
+    private List<VoteOptionEntity> voteOptions;
 
     public Integer getId() {
         return id;
@@ -27,11 +33,19 @@ public class VoteEntity {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "VoteEntity{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                '}';
+    public VoteType getType() {
+        return type;
+    }
+
+    public void setType(VoteType type) {
+        this.type = type;
+    }
+
+    public List<VoteOptionEntity> getVoteOptions() {
+        return voteOptions;
+    }
+
+    public void setVoteOptions(List<VoteOptionEntity> voteOptions) {
+        this.voteOptions = voteOptions;
     }
 }
